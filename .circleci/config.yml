@@ -1,13 +1,9 @@
 version: 2.1
 
-orbs:
-  macos: circleci/macos@2
-
 jobs:
   build-and-test:
-    macos:
-      xcode: "26.0.0"
-    resource_class: m4pro.medium
+    machine: true
+    resource_class: mzelzoghbi/iphone-farm-1
     steps:
       - checkout
 
