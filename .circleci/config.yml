@@ -18,7 +18,9 @@ jobs:
               -project test.xcodeproj \
               -scheme test \
               -destination 'generic/platform=iOS' \
-              -configuration Debug
+              -configuration Debug \
+              -allowProvisioningUpdates \
+              DEVELOPMENT_TEAM=5SU6G9HKPQ
 
       - run:
           name: Run UI tests on physical device
@@ -28,6 +30,8 @@ jobs:
               -scheme test \
               -destination 'platform=iOS,name=iPhone' \
               -configuration Debug \
+              -allowProvisioningUpdates \
+              DEVELOPMENT_TEAM=5SU6G9HKPQ \
               -resultBundlePath TestResults
 
       - store_test_results:
