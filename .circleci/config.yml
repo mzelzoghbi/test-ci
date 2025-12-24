@@ -8,28 +8,26 @@ jobs:
       - checkout
 
       - run:
-          name: List available simulators
-          command: xcrun simctl list devices available
+          name: List connected devices
+          command: xcrun xctrace list devices
 
       - run:
           name: Build app
           command: |
-            xcodebuild build \
+            xcodebuild build-for-testing \
               -project test.xcodeproj \
               -scheme test \
-              -destination 'platform=iOS Simulator,name=iPhone 17' \
-              -configuration Debug \
-              CODE_SIGNING_ALLOWED=NO
+              -destination 'generic/platform=iOS' \
+              -configuration Debug
 
       - run:
-          name: Run UI tests
+          name: Run UI tests on physical device
           command: |
-            xcodebuild test \
+            xcodebuild test-without-building \
               -project test.xcodeproj \
               -scheme test \
-              -destination 'platform=iOS Simulator,name=iPhone 17' \
+              -destination 'platform=iOS,name=iPhone' \
               -configuration Debug \
-              CODE_SIGNING_ALLOWED=NO \
               -resultBundlePath TestResults
 
       - store_test_results:
